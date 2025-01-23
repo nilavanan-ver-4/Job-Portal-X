@@ -19,6 +19,7 @@ job-portal/
 │   ├── dashboard.jinja
 │   ├── profile.html
 │   └── hr_portal.jinja
+├── Dockerfile              # Docker configuration
 └── requirements.txt        # Python dependencies
 ```
 

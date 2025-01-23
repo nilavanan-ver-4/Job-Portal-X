@@ -162,4 +162,4 @@ docker run -p 5000:5000 job-portal
 - Verify Python and pip installations
 
 ## License
-This project is licensed under the MIT License - see the [MIT](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [MIT](LICENSE) file for details.

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <title>Dashboard</title>
+    <!-- <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .welcome {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style> -->
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="welcome">Welcome, {{ session['username'] }}</h1>
+            <a href="{{ url_for('logout') }}" class="button">Logout</a>
+        </div>
+        <h2>Your Job Applications</h2>
+        {% if applications %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th>Address</th>
+                        <th>Highest Qualification</th>
+                        <th>Experience</th>
+                        <th>Skills</th>
+                        <th>Applied On</th>
+                        <th>Processing</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                        <tr>
+                            <td>{{ app.category_name }}</td>
+                            <td>{{ app.name }}</td>
+                            <td>{{ app.email }}</td>
+                            <td>{{ app.phone }}</td>
+                            <td>{{ app.age }}</td>
+                            <td>{{ app.sex }}</td>
+                            <td>{{ app.address }}</td>
+                            <td>{{ app.highest_qualification }}</td>
+                            <td>{{ app.experience }}</td>
+                            <td>{{ app.skills }}</td>
+                            <td>{{ app.applied_on }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No job applications found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

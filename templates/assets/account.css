@@ -1,0 +1,134 @@
+/* General Reset */
+body, h2, p, form, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+/* Form Box */
+.form-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Input Fields */
+.input-box {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-box label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.input-box input:focus {
+    border-color: #4285f4;
+    outline: none;
+}
+
+/* Button Styles */
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #28a745;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+.social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.social-buttons .google {
+    background-color: #4285f4;
+}
+
+.social-buttons .github {
+    background-color: #333;
+}
+
+.social-buttons .linkedin {
+    background-color: #0077b5;
+}
+
+.social-buttons button i {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+/* Links */
+.forgot-password, .switch {
+    display: block;
+    margin-top: 10px;
+    color: #4285f4;
+    text-decoration: none;
+}
+
+.forgot-password:hover, .switch:hover {
+    text-decoration: underline;
+}
+
+/* Hidden Class for Switching Forms */
+.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .form-box {
+        padding: 15px;
+        width: 100%;
+    }
+}

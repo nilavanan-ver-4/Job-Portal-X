@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .profile-form {
+            width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .profile-form input,
+        .profile-form select,
+        .profile-form textarea {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .profile-form input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .profile-form input[type="email"] {
+            border-color: #007BFF;
+        }
+
+        .profile-form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .profile-form button:hover {
+            background-color: #00b318;
+        }
+
+        .profile-form textarea {
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form method="POST" class="profile-form">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ user.name }}" required>
+    
+        <label for="username">Username:</label>
+        <input type="text" name="username" value="{{ user.username }}" required>
+    
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{ user.email }}" required>
+    
+        <label for="phone">Phone:</label>
+        <input type="text" name="phone" value="{{ user.phone }}" required>
+    
+        <label for="age">Age:</label>
+        <input type="number" name="age" value="{{ user.age }}" required>
+    
+        <label for="sex">Sex:</label>
+        <select name="sex">
+            <option value="male" {% if user.sex == 'male' %}selected{% endif %}>Male</option>
+            <option value="female" {% if user.sex == 'female' %}selected{% endif %}>Female</option>
+            <option value="other" {% if user.sex == 'other' %}selected{% endif %}>Other</option>
+        </select>
+    
+        <label for="address">Address:</label>
+        <textarea name="address" rows="4">{{ user.address }}</textarea>
+    
+        <label for="highest_qualification">Highest Qualification:</label>
+        <input type="text" name="highest_qualification" value="{{ user.highest_qualification }}" required>
+    
+        <button type="submit">Update Profile</button>
+    </form>
+</body>
+</html>

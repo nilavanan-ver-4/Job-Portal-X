@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Portal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .category-selector {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .category-section {
+            margin-bottom: 40px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+            padding: 20px;
+        }
+        .category-header {
+            font-size: 1.5em;
+            color: #007bff;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+    <h1>HR Portal</h1>
+    <!-- Dropdown Selector -->
+    <div class="category-selector">
+        <label for="category">Select Category:</label>
+        <select id="category" onchange="filterCategory()">
+            <option value="all">All Categories</option>
+            {% for category in grouped_applications.keys() %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Categories and Applications -->
+    {% for category, apps in grouped_applications.items() %}
+        <div class="category-section" data-category="{{ category }}">
+            <div class="category-header">{{ category }}</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th>Sex</th>
+                        <th>Address</th>
+                        <th>Highest Qualification</th>
+                        <th>Experience</th>
+                        <th>Skills</th>
+                        <th>Applied On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in apps %}
+                        <tr>
+                            <td>{{ app.name }}</td>
+                            <td>{{ app.email }}</td>
+                            <td>{{ app.phone }}</td>
+                            <td>{{ app.age }}</td>
+                            <td>
+                                {% if app.sex == 'm' %}
+                                    Male
+                                {% elif app.sex == 'f' %}
+                                    Female
+                                {% else %}
+                                    Other
+                                {% endif %}
+                            </td>
+                            <td>{{ app.address }}</td>
+                            <td>{{ app.highest_qualification }}</td>
+                            <td>{{ app.experience }}</td>
+                            <td>{{ app.skills }}</td>
+                            <td>{{ app.applied_on }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    function filterCategory() {
+        const selectedCategory = document.getElementById('category').value;
+        const sections = document.querySelectorAll('.category-section');
+
+        sections.forEach(section => {
+            const category = section.getAttribute('data-category');
+            if (selectedCategory === 'all' || selectedCategory === category) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</

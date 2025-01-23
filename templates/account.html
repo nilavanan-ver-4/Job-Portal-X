@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Sign Up</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='account.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <!-- Sign In Form -->
+        <div class="form-box">
+            <h2>Sign In</h2>
+            <form action="/signin" method="POST">
+                <div class="input-box">
+                    <label for="email_or_username">Email or Username</label>
+                    <input type="text" id="email_or_username" name="email_or_username" required>
+                </div>
+                <div class="input-box">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p class="forgot-password"><a href="#">Forgot password?</a></p>
+            </form>
+            <p>Or sign in with:</p>
+            <div class="social-buttons">
+                <button class="google">Sign in with Google</button>
+                <button class="github">Sign in with GitHub</button>
+                <button class="linkedin">Sign in with LinkedIn</button>
+            </div>
+            <p>Don't have an account? <a href="#" class="switch">Sign Up</a></p>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="form-box hidden">
+            <h2>Sign Up</h2>
+            <form action="/signup" method="POST">
+                <div class="input-box">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-box">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-box">
+                    <label for="email-signup">Email</label>
+                    <input type="email" id="email-signup" name="email" required>
+                </div>
+                <div class="input-box">
+                    <label for="password-signup">Password</label>
+                    <input type="password" id="password-signup" name="password" required>
+                </div>
+                <div class="input-box">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            
+            <div class="social-buttons">
+                <button class="google">Sign in with Google</button>
+                <button class="github">Sign in with GitHub</button>
+                <button class="linkedin">Sign in with LinkedIn</button>
+            </div>
+
+            <p>Already have an account? <a href="#" class="switch">Sign In</a></p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for switching between Sign In and Sign Up
+        const forms = document.querySelectorAll('.form-box');
+        const switches = document.querySelectorAll('.switch');
+
+        switches.forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                forms.forEach(form => form.classList.toggle('hidden'));
+            });
+        });
+    </script>
+</body>
+</html>

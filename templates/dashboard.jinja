@@ -3,74 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
     <title>Dashboard</title>
-    <!-- <style>
+    <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
             margin: 0;
-            padding: 20px;
+            padding: 30px;
+            color: #333;
         }
         .container {
-            max-width: 1200px;
+            width: 95%;
             margin: auto;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            background: #ffffff;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
         }
         h1, h2 {
-            color: #333;
+            color: #1e3a8a;
             text-align: center;
+        }
+        h1.welcome {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 10px;
         }
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin-top: 20px;
-            background-color: #fff;
+            background: #fefefe;
         }
         th, td {
-            padding: 12px;
+            padding: 14px;
             text-align: left;
-            border: 1px solid #ddd;
+            border-bottom: 1px solid #e5e7eb;
         }
         th {
-            background-color: #007bff;
+            background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);
             color: #ffffff;
             text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        th:first-child {
+            border-top-left-radius: 8px;
+        }
+        th:last-child {
+            border-top-right-radius: 8px;
+        }
+        tr {
+            transition: background-color 0.3s ease;
         }
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f9fafb;
         }
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #e0e7ff;
         }
         .welcome {
             margin-bottom: 20px;
-            text-align: center;
-            color: #007bff;
+            color: #1e40af;
+            font-weight: 600;
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ddd;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3b82f6;
+            margin-bottom: 30px;
         }
         .button {
-            background-color: #007bff;
+            background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);
             color: white;
-            padding: 10px 15px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             text-decoration: none;
             cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
         .button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+            transform: translateY(-2px);
         }
-    </style> -->
+        .status-pending {
+            color: #f59e0b;
+            font-weight: 500;
+        }
+        .status-under-review {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        .status-accepted {
+            color: #10b981;
+            font-weight: 500;
+        }
+        .status-rejected {
+            color: #ef4444;
+            font-weight: 500;
+        }
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -88,7 +141,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Age</th>
-                        <th>Sex</th>
+                        <th>Gender</th>
                         <th>Address</th>
                         <th>Highest Qualification</th>
                         <th>Experience</th>
@@ -101,17 +154,27 @@
                 <tbody>
                     {% for app in applications %}
                         <tr>
-                            <td>{{ app.category_name }}</td>
-                            <td>{{ app.name }}</td>
+                            <td>{{ app.job_title }}</td>
+                            <td>{{ app.full_name }}</td>
                             <td>{{ app.email }}</td>
                             <td>{{ app.phone }}</td>
                             <td>{{ app.age }}</td>
-                            <td>{{ app.sex }}</td>
+                            <td>
+                                {% if app.gender == 'M' %}
+                                    Male
+                                {% elif app.gender == 'F' %}
+                                    Female
+                                {% else %}
+                                    Other
+                                {% endif %}
+                            </td>
                             <td>{{ app.address }}</td>
                             <td>{{ app.highest_qualification }}</td>
-                            <td>{{ app.experience }}</td>
+                            <td>{{ app.years_experience }}</td>
                             <td>{{ app.skills }}</td>
                             <td>{{ app.applied_on }}</td>
+                            <td>{{ app.updated_at }}</td>
+                            <td class="status-{{ app.status|lower|replace(' ', '-') }}">{{ app.status }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

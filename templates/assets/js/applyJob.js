@@ -45,59 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
             // Get the category name from the card
             const categoryName = card.querySelector("h3").innerText;
 
-            // Update modal content dynamically
             modalContent.innerHTML = `
-                <span style="position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer; color: #333; font-weight: bold;">&times;</span>
-<h2 style="text-align: center; color: #007BFF; margin-bottom: 20px;">Job Application Form for ${categoryName}</h2>
-<form id="jobApplicationForm" method=("GET","POST") enctype="multipart/form-data" action="{{ url_for('apply') }}" style="background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="name" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Full Name</label>
-        <input type="text" id="name" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;">
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="email" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Email</label>
-        <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;">
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="phone" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Phone</label>
-        <input type="text" id="phone" name="phone" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;">
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="age" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Age</label>
-        <input type="number" id="age" name="age" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;">
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="sex" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Sex</label>
-        <select id="sex" name="sex" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
-        </select>
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="address" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Address</label>
-        <textarea id="address" name="address" rows="3" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;"></textarea>
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="highest_qualification" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Highest Qualification</label>
-        <input type="text" id="highest_qualification" name="highest_qualification" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;">
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="experience" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Experience (years)</label>
-        <input type="number" id="experience" name="experience" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;">
-    </div>
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="skills" style="display: block; font-weight: bold; margin-bottom: 5px; color: #333;">Skills</label>
-        <textarea id="skills" name="skills" rows="3" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; transition: border-color 0.3s ease;"></textarea>
-    </div>
-
-    <!-- Hidden field for categoryName -->
-    <input type="hidden" id="categoryName" name="categoryName" value="${categoryName}">
-    
-    <button type="submit" style="display: block; width: 100%; padding: 12px 0; font-size: 1.1em; color: #fff; background-color: #007BFF; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; text-transform: uppercase;">Submit Application</button>
-</form>
-            `;
-
+            <span style="position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer; color: #333; font-weight: bold;">×</span>
+            <h2 style="text-align: center; color: #007BFF; margin-bottom: 20px;">Job Application Form for ${categoryName}</h2>
+            <form id="jobApplicationForm" method="POST" action="{{ url_for('apply') }}" style="background-color: #fff; border-radius: 10px; padding: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                <!-- Other form fields -->
+                <input type="hidden" id="category_id" name="category_id" value="${category.id}">
+                <!-- Rest of the form -->
+            </form>
+        `;
             // Re-add close button event listener
             const modalCloseButton = modalContent.querySelector("span");
             modalCloseButton.addEventListener("click", () => {

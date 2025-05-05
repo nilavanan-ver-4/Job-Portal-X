@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Document Title -->
+    <title>Jobest | Landing, Corporate & Business Template</title>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Stylesheets -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/theme.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .control-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .control-panel label {
+            font-weight: 500;
+            color: #333;
+            margin-right: 10px;
+        }
+        .control-panel select, .control-panel input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+        .control-panel select:focus, .control-panel input:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+        .control-panel .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .category-card {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .category-card .icon {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 15px;
+        }
+        .category-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .category-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 5px 0;
+        }
+        .category-card .experience {
+            font-style: italic;
+        }
+        .category-card .blue-heart {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: #3b82f6;
+            transition: color 0.3s ease;
+        }
+        .category-card .blue-heart:hover {
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <main class="main" id="top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 backdrop" data-navbar-on-scroll="data-navbar-on-scroll">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center fw-bolder fs-2 fst-italic" href="#">
+                    <div class="text-info">Tunelink Networks </div>
+                    <div class="text-warning">AI</div>
+                </a>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto pt-2 pt-lg-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link fw-medium active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link fw-medium" href="#features">Jobs</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link fw-medium" href="#pricing">Career tips</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link fw-medium" href="{{ url_for('job_categories') }}">Manage Categories</a>
+                        </li>
+                    </ul>
+                    <style>
+                        .nav-link {
+                            position: relative;
+                            color: #333;
+                            text-decoration: none;
+                            transition: color 0.3s, transform 0.3s;
+                        }
+                        .nav-link:hover {
+                            color: #fff;
+                            transform: translateY(-3px);
+                        }
+                        .nav-link.active {
+                            color: #007BFF;
+                        }
+                        .nav-link::after {
+                            content: '';
+                            display: block;
+                            position: absolute;
+                            width: 0;
+                            height: 2px;
+                            background: linear-gradient(90deg, #ff9a9e, #f0d9d3, #fad0c4);
+                            transition: width 0.3s;
+                            bottom: -5px;
+                            left: 0;
+                        }
+                        .nav-link:hover::after {
+                            width: 100%;
+                        }
+                    </style>
+                    <form class="ps-lg-5">
+                        {% if 'username' in session %}
+                            <div class="dropdown">
+                                <a id="account-icon" style="text-decoration: none; color: inherit; cursor: pointer;">
+                                    <i class="fas fa-user-circle" style="font-size: 40px; color: rgb(129, 196, 29);"></i>
+                                </a>
+                                <div id="dropdown-menu" class="dropdown-menu">
+                                    <a href="{{ url_for('dashboard') }}" class="dropdown-item">Dashboard</a>
+                                    <a href="{{ url_for('profile') }}" class="dropdown-item">Profile</a>
+                                    <a href="{{ url_for('logout') }}" class="dropdown-item">Logout</a>
+                                </div>
+                            </div>
+                            <script>
+                                const accountIcon = document.getElementById('account-icon');
+                                const dropdownMenu = document.getElementById('dropdown-menu');
+                                accountIcon.addEventListener('click', () => {
+                                    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+                                });
+                                document.addEventListener('click', (event) => {
+                                    if (!accountIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                                        dropdownMenu.style.display = 'none';
+                                    }
+                                });
+                            </script>
+                        {% else %}
+                            <button class="btn btn-lg btn-primary rounded-pill bg-gradient order-0" type="button">
+                                <a href="{{ url_for('signin') }}" style="color: white; text-decoration: none;">Sign In</a>
+                            </button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <section class="py-0" id="home">
+            <div class="bg-holder d-sm-none" style="background-image:url(assets/img/illustrations/hero-bg.png);background-position:right top;background-size:contain;"></div>
+        </section>
+
+        <section class="py-8 job-categories">
+            <div class="container">
+                <h2 class="section-title">Browse Jobs by Category</h2>
+
+                <!-- Control Panel for Sorting, Ordering, and Filtering -->
+                <div class="control-panel">
+                    <div class="filter-group">
+                        <label for="sort-by">Sort by:</label>
+                        <select id="sort-by">
+                            <option value="name">Category Name</option>
+                            <option value="open_positions">Open Positions</option>
+                            <option value="experience_min">Minimum Experience</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="order">Order:</label>
+                        <select id="order">
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-name">Filter by Name:</label>
+                        <input type="text" id="filter-name" placeholder="e.g., Programmer">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-experience">Filter by Min Experience:</label>
+                        <input type="number" id="filter-experience" placeholder="e.g., 2" min="0">
+                    </div>
+                </div>
+
+                <!-- Categories Grid -->
+                <div class="categories-grid" id="categories-grid">
+                    {% for category in job_categories %}
+                        <div class="category-card" id="{{ category.name|lower|replace('/', '-')|replace(' ', '-') }}"
+                            data-name="{{ category.name|lower }}"
+                            data-open-positions="{{ category.open_positions }}"
+                            data-experience-min="{{ category.experience_min }}">
+                            <div class="icon"><i class="{{ category.icon_class }}"></i></div>
+                            <h3>{{ category.name }}</h3>
+                            <p>{{ category.open_positions }} open positions</p>
+                            <p class="experience">Experience: {{ category.experience_min }}-{{ category.experience_max }} years</p>
+                            <a class="blue-heart">💙</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="vendors/@popperjs/popper.min.js"></script>
+    <script src="vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="vendors/is/is.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="assets/js/theme.js"></script>
+    <script>
+        // Get elements
+        const sortBySelect = document.getElementById('sort-by');
+        const orderSelect = document.getElementById('order');
+        const filterNameInput = document.getElementById('filter-name');
+        const filterExperienceInput = document.getElementById('filter-experience');
+        const categoriesGrid = document.getElementById('categories-grid');
+        const categoryCards = Array.from(categoriesGrid.querySelectorAll('.category-card'));
+
+        // Function to update the displayed cards
+        function updateCards() {
+            // Get filter values
+            const filterName = filterNameInput.value.toLowerCase();
+            const filterExperience = parseInt(filterExperienceInput.value) || -1;
+
+            // Filter cards
+            let filteredCards = categoryCards.filter(card => {
+                const name = card.dataset.name;
+                const experienceMin = parseInt(card.dataset.experienceMin);
+                const nameMatch = filterName ? name.includes(filterName) : true;
+                const experienceMatch = filterExperience >= 0 ? experienceMin >= filterExperience : true;
+                return nameMatch && experienceMatch;
+            });
+
+            // Get sort and order values
+            const sortBy = sortBySelect.value;
+            const order = orderSelect.value;
+
+            // Sort cards
+            filteredCards.sort((a, b) => {
+                let valueA, valueB;
+                if (sortBy === 'name') {
+                    valueA = a.dataset.name;
+                    valueB = b.dataset.name;
+                } else if (sortBy === 'open_positions') {
+                    valueA = parseInt(a.dataset.openPositions);
+                    valueB = parseInt(b.dataset.openPositions);
+                } else if (sortBy === 'experience_min') {
+                    valueA = parseInt(a.dataset.experienceMin);
+                    valueB = parseInt(b.dataset.experienceMin);
+                }
+
+                if (order === 'asc') {
+                    return valueA > valueB ? 1 : -1;
+                } else {
+                    return valueA < valueB ? 1 : -1;
+                }
+            });
+
+            // Clear and re-append cards
+            categoriesGrid.innerHTML = '';
+            filteredCards.forEach(card => categoriesGrid.appendChild(card));
+        }
+
+        // Event listeners for sorting, ordering, and filtering
+        sortBySelect.addEventListener('change', updateCards);
+        orderSelect.addEventListener('change', updateCards);
+        filterNameInput.addEventListener('input', updateCards);
+        filterExperienceInput.addEventListener('input', updateCards);
+
+        // Initial update
+        updateCards();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+</body>
+</html>

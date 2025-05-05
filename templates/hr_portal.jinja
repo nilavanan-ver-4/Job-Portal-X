@@ -6,63 +6,149 @@
     <title>HR Portal</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3f4f6 100%);
             margin: 0;
-            padding: 20px;
+            padding: 30px;
+            color: #333;
         }
         .container {
-            max-width: 1200px;
+            width: 100%;
             margin: auto;
-            padding: 20px;
+            padding: 0px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #1e3a8a;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .category-selector {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-selector label {
+            font-weight: 600;
+            color: #1e3a8a;
         }
         select {
-            padding: 10px;
+            padding: 12px 20px;
             font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            background: #f9fafb;
+            cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+            outline: none;
         }
         .category-section {
             margin-bottom: 40px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #ffffff;
-            padding: 20px;
+            border-radius: 10px;
+            background: #fefefe;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+        .category-section:hover {
+            transform: translateY(-5px);
         }
         .category-header {
-            font-size: 1.5em;
-            color: #007bff;
+            font-size: 1.8em;
+            color: #1e40af;
             margin-bottom: 20px;
-            border-bottom: 2px solid #ddd;
+            border-bottom: 3px solid #3b82f6;
             padding-bottom: 10px;
+            font-weight: 600;
         }
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
         }
         th, td {
-            padding: 12px;
+            padding: 14px;
             text-align: left;
-            border: 1px solid #ddd;
+            border-bottom: 1px solid #e5e7eb;
         }
         th {
-            background-color: #007bff;
+            background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);
             color: #ffffff;
             text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        th:first-child {
+            border-top-left-radius: 8px;
+        }
+        th:last-child {
+            border-top-right-radius: 8px;
+        }
+        tr {
+            transition: background-color 0.3s ease;
         }
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f9fafb;
         }
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #e0e7ff;
+        }
+        td a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        td a:hover {
+            color: #1e3a8a;
+            text-decoration: underline;
+        }
+        .status-form {
+            display: inline-block;
+        }
+        .status-form select {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 2px solid #d1d5db;
+            border-radius: 6px;
+            background: #f9fafb;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+        .status-form select:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+        .status-pending {
+            color: #f59e0b;
+            font-weight: 500;
+        }
+        .status-under-review {
+            color: #3b82f6;
+            font-weight: 500;
+        }
+        .status-accepted {
+            color: #10b981;
+            font-weight: 500;
+        }
+        .status-rejected {
+            color: #ef4444;
+            font-weight: 500;
         }
         .hidden {
             display: none;
@@ -70,82 +156,97 @@
     </style>
 </head>
 <body>
-   <div class="container">
-    <h1>HR Portal</h1>
-    <!-- Dropdown Selector -->
-    <div class="category-selector">
-        <label for="category">Select Category:</label>
-        <select id="category" onchange="filterCategory()">
-            <option value="all">All Categories</option>
-            {% for category in grouped_applications.keys() %}
-                <option value="{{ category }}">{{ category }}</option>
-            {% endfor %}
-        </select>
+    <div class="container">
+        <h1>HR Portal</h1>
+        <!-- Dropdown Selector -->
+        <div class="category-selector">
+            <label for="category">Select Category:</label>
+            <select id="category" onchange="filterCategory()">
+                <option value="all">All Categories</option>
+                {% for category in grouped_applications.keys() %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Categories and Applications -->
+        {% for category, apps in grouped_applications.items() %}
+            <div class="category-section" data-category="{{ category }}">
+                <div class="category-header">{{ category }}</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>Highest Qualification</th>
+                            <th>Experience</th>
+                            <th>Skills</th>
+                            <th>Resume URL</th>
+                            <th>Status</th>
+                            <th>Applied On</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in apps %}
+                            <tr>
+                                <td>{{ app.full_name }}</td>
+                                <td>{{ app.email }}</td>
+                                <td>{{ app.phone }}</td>
+                                <td>{{ app.age }}</td>
+                                <td>
+                                    {% if app.gender == 'Male' %}
+                                        Male
+                                    {% elif app.gender == 'Female' %}
+                                        Female
+                                    {% else %}
+                                        {{ app.gender }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ app.address }}</td>
+                                <td>{{ app.highest_qualification }}</td>
+                                <td>{{ app.years_experience }}</td>
+                                <td>{{ app.skills }}</td>
+                                <td><a href="{{ app.resume_url }}" target="_blank">View Resume</a></td>
+                                <td class="status-{{ app.status|lower|replace(' ', '-') }}">{{ app.status }}</td>
+                                <td>{{ app.applied_on }}</td>
+                                <td>
+                                    <form class="status-form" method="POST" action="{{ url_for('update_application_status') }}">
+                                        <input type="hidden" name="application_id" value="{{ app.id }}">
+                                        <select name="status" onchange="this.form.submit()">
+                                            <option value="Pending" {% if app.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                            <option value="Under Review" {% if app.status == 'Under Review' %}selected{% endif %}>Under Review</option>
+                                            <option value="Accepted" {% if app.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                                            <option value="Rejected" {% if app.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                                        </select>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
     </div>
 
-    <!-- Categories and Applications -->
-    {% for category, apps in grouped_applications.items() %}
-        <div class="category-section" data-category="{{ category }}">
-            <div class="category-header">{{ category }}</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Age</th>
-                        <th>Sex</th>
-                        <th>Address</th>
-                        <th>Highest Qualification</th>
-                        <th>Experience</th>
-                        <th>Skills</th>
-                        <th>Applied On</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for app in apps %}
-                        <tr>
-                            <td>{{ app.name }}</td>
-                            <td>{{ app.email }}</td>
-                            <td>{{ app.phone }}</td>
-                            <td>{{ app.age }}</td>
-                            <td>
-                                {% if app.sex == 'm' %}
-                                    Male
-                                {% elif app.sex == 'f' %}
-                                    Female
-                                {% else %}
-                                    Other
-                                {% endif %}
-                            </td>
-                            <td>{{ app.address }}</td>
-                            <td>{{ app.highest_qualification }}</td>
-                            <td>{{ app.experience }}</td>
-                            <td>{{ app.skills }}</td>
-                            <td>{{ app.applied_on }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% endfor %}
-</div>
+    <script>
+        function filterCategory() {
+            const selectedCategory = document.getElementById('category').value;
+            const sections = document.querySelectorAll('.category-section');
 
-<script>
-    function filterCategory() {
-        const selectedCategory = document.getElementById('category').value;
-        const sections = document.querySelectorAll('.category-section');
-
-        sections.forEach(section => {
-            const category = section.getAttribute('data-category');
-            if (selectedCategory === 'all' || selectedCategory === category) {
-                section.style.display = 'block';
-            } else {
-                section.style.display = 'none';
-            }
-        });
-    }
-</script>
-
+            sections.forEach(section => {
+                const category = section.getAttribute('data-category');
+                if (selectedCategory === 'all' || selectedCategory === category) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
-</
+</html>
